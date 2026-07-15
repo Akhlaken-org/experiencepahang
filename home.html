@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Experience Pahang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                    },
+                    colors: {
+                        lux: {
+                            bg: '#FAF9F6',      
+                            stone: '#E8E6E1',   
+                            text: '#2C2A28',    
+                            muted: '#6B6965',   
+                            accent: '#8C8374',  
+                        }
+                    },
+                    letterSpacing: {
+                        widest: '.25em',
+                        superwide: '.35em',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #FAF9F6; color: #2C2A28; }
+        
+        .glass-nav {
+            background: rgba(250, 249, 246, 0.98);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
+
+        .hero-gradient { background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%); }
+
+        .lux-button {
+            border: 1px solid rgba(255,255,255,0.4);
+            transition: all 0.5s ease;
+        }
+        .lux-button:hover { background-color: #fff; color: #2C2A28; }
+
+        .lux-button-dark {
+            border: 1px solid #2C2A28;
+            transition: all 0.5s ease;
+        }
+        .lux-button-dark:hover { background-color: #2C2A28; color: #FAF9F6; }
+
+        .image-zoom-container { overflow: hidden; }
+        .image-zoom { transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .image-zoom-container:hover .image-zoom { transform: scale(1.05); }
+
+        .hover-line { position: relative; }
+        .hover-line::after {
+            content: ''; position: absolute; width: 0; height: 1px; bottom: -2px; left: 0;
+            background-color: currentColor; transition: width 0.4s ease;
+        }
+        .hover-line:hover::after { width: 100%; }
+
+        .card-image-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .group:hover .card-image-wrapper::after { opacity: 1; }
+        
+        .gallery-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-lux-accent selection:text-white">
+
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-700 bg-transparent py-6">
+        <div class="max-w-[90rem] mx-auto px-6 sm:px-12">
+            <div class="flex justify-between items-center">
+                <div class="flex-shrink-0 flex items-center cursor-pointer group">
+                    <span class="font-serif font-normal text-2xl tracking-widest text-white transition-colors duration-500 uppercase" id="nav-logo-text">
+                        Experience Pahang
+                    </span>
+                </div>
+
+                <div class="hidden lg:flex space-x-10 items-center">
+                    <a href="experience.html" class="text-xs uppercase tracking-widest text-white hover-line transition-colors nav-link">Experiences</a>
+                    <a href="destination.html" class="text-xs uppercase tracking-widest text-white hover-line transition-colors nav-link">Destinations</a>
+                    <a href="calendar.html" class="text-xs uppercase tracking-widest text-white hover-line transition-colors nav-link">Calendar</a>
+                    <a href="#guide" class="text-xs uppercase tracking-widest text-white hover-line transition-colors nav-link">Travel Guide</a>
+                    <a href="#plan" class="ml-6 px-6 py-3 border border-white/30 text-white text-xs uppercase tracking-widest hover:bg-white hover:text-lux-text transition-all duration-500 nav-btn">
+                        Plan Your Trip
+                    </a>
+                </div>
+
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-white focus:outline-none transition-colors duration-500">
+                        <i data-lucide="menu" class="h-6 w-6 font-light stroke-[1.5]"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden lg:hidden bg-lux-bg fixed inset-0 z-40 h-screen w-full pt-24 px-6 flex flex-col">
+            <div class="flex flex-col space-y-8 items-center text-center mt-10">
+                <a href="experience.html" class="text-lg font-serif text-lux-text hover:text-lux-accent transition-colors mobile-link">Experiences</a>
+                <a href="destination.html" class="text-lg font-serif text-lux-text hover:text-lux-accent transition-colors mobile-link">Destinations</a>
+                <a href="calendar.html" class="text-lg font-serif text-lux-text hover:text-lux-accent transition-colors mobile-link">Calendar</a>
+                <a href="#guide" class="text-lg font-serif text-lux-text hover:text-lux-accent transition-colors mobile-link">Travel Guide</a>
+                <div class="pt-8 w-full max-w-xs">
+                    <a href="#plan" class="block w-full px-6 py-4 border border-lux-text text-lux-text text-xs uppercase tracking-widest text-center hover:bg-lux-text hover:text-white transition-all duration-500 mobile-link">
+                        Plan Your Trip
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative h-screen flex flex-col justify-end pb-24 overflow-hidden">
+        <div class="absolute inset-0 w-full h-full">
+            <img src="visual/pahang/pexels-pok-rie-33563-139066.jpg" alt="Pahang Landscape" class="w-full h-full object-cover object-center" />
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+
+        <div class="relative z-10 max-w-[90rem] mx-auto px-6 sm:px-12 w-full">
+            <div class="max-w-4xl">
+                <p class="uppercase tracking-superwide text-white/80 text-[10px] sm:text-xs mb-6 font-light flex items-center gap-4">
+                    <span class="w-12 h-[1px] bg-white/50"></span>
+                    Official Tourism Portal of Pahang
+                </p>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif text-white leading-[1.1] mb-8 font-light">
+                    Discover Malaysia's <br/><i class="font-light italic text-white/90">Most Diverse</i> Destination
+                </h1>
+                <p class="text-base md:text-lg text-white/80 mb-12 max-w-2xl font-light leading-relaxed">
+                    From ancient rainforests and cool highland retreats to pristine islands, royal heritage, and unforgettable adventures, Experience Pahang invites you to explore a destination where nature, culture, and discovery come together.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-6 mb-16">
+                    <a href="destination.html" class="lux-button px-8 py-4 text-white text-xs uppercase tracking-widest text-center">
+                        Explore Destinations
+                    </a>
+                    <a href="#plan" class="group flex items-center justify-center gap-3 px-8 py-4 text-white text-xs uppercase tracking-widest hover:text-white/70 transition-colors">
+                        Plan Your Trip
+                        <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full bg-black/20 backdrop-blur-md border-t border-white/10 hidden md:block">
+            <div class="max-w-[90rem] mx-auto px-6 sm:px-12 py-6">
+                <div class="flex justify-between divide-x divide-white/20">
+                    <div class="flex-1 px-4 first:pl-0 text-center sm:text-left">
+                        <div class="text-2xl font-serif text-white mb-1">11</div>
+                        <div class="text-[10px] uppercase tracking-widest text-white/60">Districts</div>
+                    </div>
+                    <div class="flex-1 px-4 text-center sm:text-left">
+                        <div class="text-2xl font-serif text-white mb-1">1,000+</div>
+                        <div class="text-[10px] uppercase tracking-widest text-white/60">Attractions & Experiences</div>
+                    </div>
+                    <div class="flex-1 px-4 text-center sm:text-left">
+                        <div class="text-2xl font-serif text-white mb-1">365 Days</div>
+                        <div class="text-[10px] uppercase tracking-widest text-white/60">Year-Round Adventures</div>
+                    </div>
+                    <div class="flex-1 px-4 last:pr-0 text-center sm:text-left">
+                        <div class="text-2xl font-serif text-white mb-1">Countless</div>
+                        <div class="text-[10px] uppercase tracking-widest text-white/60">Memorable Journeys</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="experiences" class="py-32 bg-white">
+        <div class="max-w-[90rem] mx-auto px-6 sm:px-12">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+                
+                <!-- Left Sticky Intro -->
+                <div class="lg:col-span-5 lg:sticky lg:top-32">
+                    <span class="text-[10px] uppercase tracking-widest text-lux-accent mb-4 block">Experience Pahang</span>
+                    <h2 class="text-4xl md:text-5xl font-serif text-lux-text mb-6 font-light">Every journey tells a different story.</h2>
+                    <p class="text-lux-muted text-base leading-relaxed font-light mb-6">
+                        Pahang is Malaysia's largest state, where every journey unveils a different side of Malaysia's natural beauty, cultural heritage, and unforgettable adventures. Wander through ancient rainforests, breathe in the cool air of scenic highlands, relax on pristine beaches and tropical islands, immerse yourself in centuries of royal traditions, and discover unique stays surrounded by nature.
+                    </p>
+                    <p class="text-lux-muted text-base leading-relaxed font-light mb-12">
+                        Whether you're planning an adventurous escape, a family holiday, a cultural journey, or a peaceful retreat, Experience Pahang invites you to explore a destination filled with remarkable landscapes and authentic experiences all year round.
+                    </p>
+                    <a href="experience.html" class="lux-button-dark px-8 py-4 text-xs uppercase tracking-widest inline-block text-center">
+                        Explore All Experiences
+                    </a>
+                </div>
+
+                <!-- Right Experience Grid -->
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <!-- Experience 1 -->
+                    <div class="group cursor-pointer sm:col-span-2">
+                        <div class="h-80 w-full overflow-hidden mb-6 bg-lux-stone image-zoom-container">
+                            <img src="visual/GOOO/rb-boat.png" alt="Nature & Rainforest" class="w-full h-full object-cover image-zoom">
+                        </div>
+                        <h3 class="text-2xl font-serif text-lux-text mb-3 group-hover:text-lux-accent transition-colors">🌿 Nature & Rainforest</h3>
+                        <p class="text-lux-muted font-light text-sm leading-relaxed max-w-lg">Walk beneath ancient rainforest canopies, discover breathtaking waterfalls, encounter diverse wildlife, and reconnect with the beauty of nature.</p>
+                    </div>
+
+                    <!-- Experience 2 -->
+                    <div class="group cursor-pointer">
+                        <div class="h-64 w-full overflow-hidden mb-6 bg-lux-stone image-zoom-container">
+                            <img src="visual/pahang/highland.jpg" alt="Highland Escapes" class="w-full h-full object-cover image-zoom">
+                        </div>
+                        <h3 class="text-xl font-serif text-lux-text mb-3 group-hover:text-lux-accent transition-colors">⛰ Highlands & Scenic Escapes</h3>
+                        <p class="text-lux-muted font-light text-sm leading-relaxed">Escape to cool mountain retreats, wander through lush tea plantations, admire panoramic viewpoints, and experience the charm of Pahang's highlands.</p>
+                    </div>
+
+                    <!-- Experience 3 -->
+                    <div class="group cursor-pointer">
+                        <div class="h-64 w-full overflow-hidden mb-6 bg-lux-stone image-zoom-container">
+                            <img src="visual/pahang/beach.jpeg" alt="Adventure & Trek" class="w-full h-full object-cover image-zoom">
+                        </div>
+                        <h3 class="text-xl font-serif text-lux-text mb-3 group-hover:text-lux-accent transition-colors">🏖 Beaches & Islands</h3>
+                        <p class="text-lux-muted font-light text-sm leading-relaxed">Relax on pristine beaches, explore tropical islands, dive into crystal-clear waters, and enjoy unforgettable coastal adventures.</p>
+                    </div>
+
+                    <!-- Experience 4 -->
+                    <div class="group cursor-pointer">
+                        <div class="h-64 w-full overflow-hidden mb-6 bg-lux-stone image-zoom-container">
+                            <img src="visual/pahang/3009294.jpeg" alt="Food & Culture" class="w-full h-full object-cover image-zoom">
+                        </div>
+                        <h3 class="text-xl font-serif text-lux-text mb-3 group-hover:text-lux-accent transition-colors">🧗 Adventure & Outdoor</h3>
+                        <p class="text-lux-muted font-light text-sm leading-relaxed">Challenge yourself with thrilling outdoor activities, trek scenic trails, conquer mountain peaks, explore caves and rivers, and embrace unforgettable adventures.</p>
+                    </div>
+
+                    <!-- Experience 5 -->
+                    <div class="group cursor-pointer">
+                        <div class="h-64 w-full overflow-hidden mb-6 bg-lux-stone image-zoom-container">
+                            <img src="visual/Mutiara-Taman-Negara-exterior.jpg" alt="Beaches & Islands" class="w-full h-full object-cover image-zoom">
+                        </div>
+                        <h3 class="text-xl font-serif text-lux-text mb-3 group-hover:text-lux-accent transition-colors">🏛 Culture, Heritage & Local Flavours</h3>
+                        <p class="text-lux-muted font-light text-sm leading-relaxed">Experience royal traditions, discover historic landmarks, savour authentic local delicacies, explore vibrant markets, and immerse yourself in Pahang's rich cultural heritage.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-32 bg-lux-bg border-t border-lux-stone">
+        <div class="max-w-[90rem] mx-auto px-6 sm:px-12">
+            
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                <div class="max-w-2xl">
+                    <span class="text-[10px] uppercase tracking-widest text-lux-accent mb-4 block">Pahang's Signature Landmarks</span>
+                    <h2 class="text-4xl md:text-5xl font-serif text-lux-text mb-6 font-light">Discover the destinations that define the beauty and diversity of Pahang.</h2>
+                </div>
+                <a href="destination.html" class="inline-flex items-center gap-3 text-xs uppercase tracking-widest text-lux-text hover-line pb-1 whitespace-nowrap">
+                    View All Destinations <i data-lucide="arrow-right" class="w-4 h-4 stroke-[1.5]"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+                <!-- Cameron Highlands -->
+                <div class="group cursor-pointer">
+                    <div class="h-[70vh] w-full overflow-hidden mb-8 bg-lux-stone card-image-wrapper relative image-zoom-container">
+                        <img src="visual/pahang/cameron.jpg" alt="Cameron Highlands" class="w-full h-full object-cover image-zoom" />
+                    </div>
+                    <h3 class="text-3xl font-serif text-lux-text mb-4 group-hover:text-lux-accent transition-colors">Cameron Highlands</h3>
+                    <p class="text-lux-muted font-light text-sm mb-6 leading-relaxed">Escape to Malaysia's famous highland retreat, known for rolling tea plantations, strawberry farms, flower gardens, and refreshing mountain scenery.</p>
+                </div>
+
+                <!-- Taman Negara -->
+                <div class="group cursor-pointer pt-0 md:pt-16">
+                    <div class="h-[70vh] w-full overflow-hidden mb-8 bg-lux-stone card-image-wrapper relative image-zoom-container">
+                        <img src="visual/pahang/tamann.jpg" alt="Taman Negara" class="w-full h-full object-cover image-zoom" />
+                    </div>
+                    <h3 class="text-3xl font-serif text-lux-text mb-4 group-hover:text-lux-accent transition-colors">Taman Negara</h3>
+                    <p class="text-lux-muted font-light text-sm mb-6 leading-relaxed">Journey into one of the world's oldest tropical rainforests with canopy walks, river cruises, wildlife encounters, and unforgettable jungle adventures.</p>
+                </div>
+
+                <!-- Tioman Island -->
+                <div class="group cursor-pointer pt-0 md:pt-32">
+                    <div class="h-[70vh] w-full overflow-hidden mb-8 bg-lux-stone card-image-wrapper relative image-zoom-container">
+                        <img src="visual/pahang/tioman.jpg" alt="Tioman Island" class="w-full h-full object-cover image-zoom" />
+                    </div>
+                    <h3 class="text-3xl font-serif text-lux-text mb-4 group-hover:text-lux-accent transition-colors">Tioman Island</h3>
+                    <p class="text-lux-muted font-light text-sm mb-6 leading-relaxed">Relax on pristine beaches, dive among colourful coral reefs, and experience one of Southeast Asia's most spectacular island destinations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 bg-white border-t border-lux-stone">
+        <div class="max-w-[90rem] mx-auto px-6 sm:px-12">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-[10px] uppercase tracking-widest text-lux-accent mb-4 block">Discover the Beauty of Pahang</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-lux-text mb-6 font-light">A glimpse into unforgettable experiences waiting across every corner of the state.</h2>
+            </div>
+
+            <!-- Staggered Masonry Gallery -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                <!-- Large Image -->
+                <div class="md:col-span-8 h-[60vh] relative group overflow-hidden bg-lux-stone">
+                    <img src="visual/pahang/tamann.jpg" alt="Rainforest" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+                    <div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
+                        <span class="text-white font-serif text-2xl">Ancient Rainforests</span>
+                    </div>
+                </div>
+                <!-- Small Top -->
+                <div class="md:col-span-4 h-[60vh] md:h-auto grid grid-rows-2 gap-4">
+                    <div class="relative group overflow-hidden bg-lux-stone">
+                        <img src="visual/pahang/satay.jpg" alt="Food" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+                        <div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                            <span class="text-white font-serif text-xl">Culinary Heritage</span>
+                        </div>
+                    </div>
+                    <div class="relative group overflow-hidden bg-lux-stone">
+                        <img src="visual/pahang/tioman.jpg" alt="Island" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+                        <div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                            <span class="text-white font-serif text-xl">Pristine Islands</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <a href="#" class="lux-button-dark px-8 py-4 text-xs uppercase tracking-widest inline-block">
+                    View Gallery
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-32 bg-lux-bg border-t border-lux-stone">
+        <div class="max-w-[90rem] mx-auto px-6 sm:px-12">
+            
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                <div class="max-w-2xl">
+                    <span class="text-[10px] uppercase tracking-widest text-lux-accent mb-4 block">Upcoming Events in Pahang</span>
+                    <h2 class="text-4xl md:text-5xl font-serif text-lux-text mb-6 font-light">Celebrate culture, food, adventure, and community throughout the year.</h2>
+                </div>
+                <a href="calendar.html" class="inline-flex items-center gap-3 text-xs uppercase tracking-widest text-lux-text hover-line pb-1 whitespace-nowrap">
+                    View All Events <i data-lucide="arrow-right" class="w-4 h-4 stroke-[1.5]"></i>
+                </a>
+            </div>
+
+            <div class="max-w-5xl mx-auto border-t border-lux-stone">
+                
+                <!-- Event 1 -->
+                <div class="py-10 border-b border-lux-stone flex flex-col md:flex-row gap-6 md:gap-12 items-start md:items-center group hover:bg-white/50 transition-colors px-4 -mx-4">
+                    <div class="md:w-48 shrink-0">
+                        <div class="text-sm font-light text-lux-text">15–17 August 2026</div>
+                        <div class="text-[10px] uppercase tracking-widest text-lux-accent mt-2 flex items-center gap-2">
+                            <i data-lucide="map-pin" class="w-3 h-3"></i> Kuantan
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-serif text-lux-text mb-2 group-hover:text-lux-accent transition-colors">Pahang Food Festival</h3>
+                        <p class="text-lux-muted font-light text-sm">Explore local flavours, culinary showcases, and traditional delicacies from across Pahang.</p>
+                    </div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="py-10 border-b border-lux-stone flex flex-col md:flex-row gap-6 md:gap-12 items-start md:items-center group hover:bg-white/50 transition-colors px-4 -mx-4">
+                    <div class="md:w-48 shrink-0">
+                        <div class="text-sm font-light text-lux-text">12–14 October 2026</div>
+                        <div class="text-[10px] uppercase tracking-widest text-lux-accent mt-2 flex items-center gap-2">
+                            <i data-lucide="map-pin" class="w-3 h-3"></i> Tioman Island
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-serif text-lux-text mb-2 group-hover:text-lux-accent transition-colors">Tioman Surfing Festival</h3>
+                        <p class="text-lux-muted font-light text-sm">Watch exciting surfing competitions while enjoying beach activities, live entertainment, and island experiences.</p>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="py-10 border-b border-lux-stone flex flex-col md:flex-row gap-6 md:gap-12 items-start md:items-center group hover:bg-white/50 transition-colors px-4 -mx-4">
+                    <div class="md:w-48 shrink-0">
+                        <div class="text-sm font-light text-lux-text">03–07 December 2026</div>
+                        <div class="text-[10px] uppercase tracking-widest text-lux-accent mt-2 flex items-center gap-2">
+                            <i data-lucide="map-pin" class="w-3 h-3"></i> Pekan
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-serif text-lux-text mb-2 group-hover:text-lux-accent transition-colors">Royal Pahang Arts Festival</h3>
+                        <p class="text-lux-muted font-light text-sm">Celebrate traditional performances, cultural exhibitions, local crafts, and the rich heritage of the Pahang Sultanate.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="guide" class="py-32 bg-white">
+        <div class="max-w-[90rem] mx-auto px-6 sm:px-12">
+            
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <span class="text-[10px] uppercase tracking-widest text-lux-accent mb-4 block">Plan Your Journey</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-lux-text mb-6 font-light">Everything you need for a smooth and memorable trip to Pahang.</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16 border-t border-lux-stone pt-16 mb-16">
+                <!-- Info Card 1 -->
+                <a href="#" class="text-center group block">
+                    <i data-lucide="plane" class="w-8 h-8 text-lux-accent mx-auto mb-6 stroke-[1] group-hover:scale-110 transition-transform"></i>
+                    <h3 class="text-xl font-serif text-lux-text mb-4">Getting Here</h3>
+                    <p class="text-lux-muted font-light text-sm leading-relaxed">Travel to Pahang by air, road, rail, or ferry with comprehensive transportation information and travel routes.</p>
+                </a>
+
+                <!-- Info Card 2 -->
+                <a href="#" class="text-center group block">
+                    <i data-lucide="bed" class="w-8 h-8 text-lux-accent mx-auto mb-6 stroke-[1] group-hover:scale-110 transition-transform"></i>
+                    <h3 class="text-xl font-serif text-lux-text mb-4">Accommodation</h3>
+                    <p class="text-lux-muted font-light text-sm leading-relaxed">Find hotels, resorts, eco-lodges, beach retreats, and unique stays across every district.</p>
+                </a>
+
+                <!-- Info Card 3 -->
+                <a href="#" class="text-center group block">
+                    <i data-lucide="car" class="w-8 h-8 text-lux-accent mx-auto mb-6 stroke-[1] group-hover:scale-110 transition-transform"></i>
+                    <h3 class="text-xl font-serif text-lux-text mb-4">Transportation</h3>
+                    <p class="text-lux-muted font-light text-sm leading-relaxed">Explore local transport options including car rentals, buses, taxis, ferries, and private transfers.</p>
+                </a>
+
+                <!-- Info Card 4 -->
+                <a href="#" class="text-center group block">
+                    <i data-lucide="cloud-sun" class="w-8 h-8 text-lux-accent mx-auto mb-6 stroke-[1] group-hover:scale-110 transition-transform"></i>
+                    <h3 class="text-xl font-serif text-lux-text mb-4">Seasons & Climate</h3>
+                    <p class="text-lux-muted font-light text-sm leading-relaxed">Learn about Pahang's weather throughout the year and discover the best times to visit different destinations.</p>
+                </a>
+            </div>
+
+            <div class="text-center">
+                <a href="#plan" class="lux-button-dark px-10 py-4 text-xs uppercase tracking-widest inline-block">
+                    Start Planning
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 bg-lux-bg border-t border-lux-stone">
+        <div class="max-w-[90rem] mx-auto px-6 sm:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+                <!-- Left Column: Intro & Form -->
+                <div>
+                    <span class="text-[10px] uppercase tracking-widest text-lux-accent mb-4 block">Stay Connected with Experience Pahang</span>
+                    <h2 class="text-4xl md:text-5xl font-serif text-lux-text mb-6 font-light">Your Next Adventure Starts Here</h2>
+                    <p class="text-lux-muted text-base leading-relaxed font-light mb-6">
+                        Whether you're chasing waterfalls, wandering through tea plantations, or discovering centuries of royal heritage, every corner of Pahang offers a new story waiting to be experienced.
+                    </p>
+                    <p class="text-lux-muted text-base leading-relaxed font-light mb-12">
+                        Subscribe to our newsletter and be the first to discover seasonal travel inspiration, upcoming festivals, new attractions, local travel tips, and exclusive updates from across Pahang.
+                    </p>
+
+                    <form class="flex flex-col sm:flex-row gap-6 mb-8" onsubmit="event.preventDefault();">
+                        <div class="flex-grow relative">
+                            <input type="email" placeholder="Enter your email address" class="w-full bg-transparent border-b border-lux-stone pb-3 text-sm text-lux-text placeholder-lux-muted focus:outline-none focus:border-lux-text transition-colors rounded-none" required>
+                        </div>
+                        <button type="submit" class="lux-button-dark px-8 py-3 text-xs uppercase tracking-widest whitespace-nowrap h-max">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right Column: Benefits & Privacy -->
+                <div class="lg:pl-12 lg:border-l lg:border-lux-stone">
+                    <p class="text-[10px] font-medium uppercase tracking-widest text-lux-text mb-8">What You'll Receive</p>
+                    <ul class="space-y-6 mb-12">
+                        <li class="flex items-start gap-4 text-lux-muted font-light text-sm leading-relaxed">
+                            <i data-lucide="leaf" class="w-4 h-4 text-lux-accent mt-0.5 shrink-0 stroke-[1.5]"></i>
+                            Travel inspiration from across Pahang
+                        </li>
+                        <li class="flex items-start gap-4 text-lux-muted font-light text-sm leading-relaxed">
+                            <i data-lucide="calendar" class="w-4 h-4 text-lux-accent mt-0.5 shrink-0 stroke-[1.5]"></i>
+                            Updates on festivals and upcoming events
+                        </li>
+                        <li class="flex items-start gap-4 text-lux-muted font-light text-sm leading-relaxed">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-lux-accent mt-0.5 shrink-0 stroke-[1.5]"></i>
+                            Featured destinations and hidden gems
+                        </li>
+                        <li class="flex items-start gap-4 text-lux-muted font-light text-sm leading-relaxed">
+                            <i data-lucide="map" class="w-4 h-4 text-lux-accent mt-0.5 shrink-0 stroke-[1.5]"></i>
+                            Seasonal travel guides and itinerary ideas
+                        </li>
+                        <li class="flex items-start gap-4 text-lux-muted font-light text-sm leading-relaxed">
+                            <i data-lucide="compass" class="w-4 h-4 text-lux-accent mt-0.5 shrink-0 stroke-[1.5]"></i>
+                            New attractions and tourism experiences
+                        </li>
+                    </ul>
+                    <p class="text-xs text-lux-muted font-light italic leading-relaxed border-t border-lux-stone pt-6">
+                        We respect your privacy. Your email will only be used to send tourism updates from Experience Pahang. You can unsubscribe at any time.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-lux-text py-24">
+        <div class="max-w-[90rem] mx-auto px-6 sm:px-12 flex flex-col items-center text-center">
+            
+            <span class="font-serif font-normal text-2xl tracking-widest text-white uppercase mb-4">
+                Experience Pahang
+            </span>
+            <span class="text-[10px] uppercase tracking-widest text-white/50 mb-8 block">Official Tourism Portal of Pahang</span>
+            
+            <p class="text-white/60 font-light text-sm mb-12 max-w-md leading-relaxed">
+                Discover Malaysia's most diverse destination—from ancient rainforests and cool highlands to tropical islands, cultural heritage, and unforgettable adventures.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-8 mb-16">
+                <a href="destinations.html" class="text-[10px] uppercase tracking-widest text-white/80 hover:text-white transition-colors">Destinations</a>
+                <a href="experiences.html" class="text-[10px] uppercase tracking-widest text-white/80 hover:text-white transition-colors">Experiences</a>
+                <a href="calendar.html" class="text-[10px] uppercase tracking-widest text-white/80 hover:text-white transition-colors">Events</a>
+                <a href="#guide" class="text-[10px] uppercase tracking-widest text-white/80 hover:text-white transition-colors">Travel Guide</a>
+                <a href="#" class="text-[10px] uppercase tracking-widest text-white/80 hover:text-white transition-colors">Contact Us</a>
+            </div>
+            
+            <div class="w-full border-t border-white/10 pt-8">
+                <p class="text-white/40 text-[10px] uppercase tracking-widest">© 2026 Experience Pahang. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize thin elegant icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const menuIcon = btn.querySelector('i');
+        const navLogoText = document.getElementById('nav-logo-text');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            
+            if(menu.classList.contains('hidden')){
+                menuIcon.setAttribute('data-lucide', 'menu');
+                document.body.style.overflow = 'auto'; // Re-enable scroll
+                
+                // Return colors if at top of page
+                if(window.scrollY < 50) {
+                    btn.classList.add('text-white');
+                    btn.classList.remove('text-lux-text');
+                    navLogoText.classList.add('text-white');
+                    navLogoText.classList.remove('text-lux-text');
+                }
+            } else {
+                menuIcon.setAttribute('data-lucide', 'x');
+                document.body.style.overflow = 'hidden'; // Prevent scroll while menu open
+                
+                // Force dark colors for mobile menu open state
+                btn.classList.remove('text-white');
+                btn.classList.add('text-lux-text');
+                navLogoText.classList.remove('text-white');
+                navLogoText.classList.add('text-lux-text');
+            }
+            lucide.createIcons();
+        });
+
+        // Close mobile menu when clicking a link
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                document.body.style.overflow = 'auto';
+                lucide.createIcons();
+            });
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const navBtn = document.querySelector('.nav-btn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                // Scrolled state - Light background, Dark text
+                navbar.classList.add('glass-nav');
+                navbar.classList.remove('bg-transparent', 'py-6');
+                navbar.classList.add('py-4');
+                
+                navLogoText.classList.remove('text-white');
+                navLogoText.classList.add('text-lux-text');
+                
+                btn.classList.remove('text-white');
+                btn.classList.add('text-lux-text');
+
+                navLinks.forEach(link => {
+                    link.classList.remove('text-white');
+                    link.classList.add('text-lux-text');
+                });
+                
+                if(navBtn) {
+                    navBtn.classList.remove('border-white/30', 'text-white', 'hover:bg-white', 'hover:text-lux-text');
+                    navBtn.classList.add('border-lux-text', 'text-lux-text', 'hover:bg-lux-text', 'hover:text-white');
+                }
+
+            } else {
+                // Top state - Transparent background, White text
+                navbar.classList.remove('glass-nav');
+                navbar.classList.add('bg-transparent', 'py-6');
+                navbar.classList.remove('py-4');
+
+                // Don't revert if mobile menu is open
+                if(menu.classList.contains('hidden')){
+                    navLogoText.classList.add('text-white');
+                    navLogoText.classList.remove('text-lux-text');
+                    
+                    btn.classList.add('text-white');
+                    btn.classList.remove('text-lux-text');
+                }
+
+                navLinks.forEach(link => {
+                    link.classList.add('text-white');
+                    link.classList.remove('text-lux-text');
+                });
+
+                if(navBtn) {
+                    navBtn.classList.add('border-white/30', 'text-white', 'hover:bg-white', 'hover:text-lux-text');
+                    navBtn.classList.remove('border-lux-text', 'text-lux-text', 'hover:bg-lux-text', 'hover:text-white');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
